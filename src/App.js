@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import store from "./store";
+import { useDispatch } from "react-redux";
+import "./App.css";
 
 function App() {
+  const [flag, setFlag] = React.useState(false);
+  const handleIncrement = () => {
+    store.dispatch({
+      type:"increment"
+    })
+  };
+  
+
+  const reset = () => {
+    store.dispatch({
+      type: "reset",
+    });
+    setFlag(!flag);
+  };
+
+  const decrement = () => {
+    store.dispatch({
+      type: "decr",
+    });
+    setFlag(!flag);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{store.getState()}</h1>
+      <button onClick={handleIncrement}>increment</button>
+      <button onClick={decrement}>decrement</button>
+      <button onClick={reset}>reset</button>
     </div>
   );
 }
